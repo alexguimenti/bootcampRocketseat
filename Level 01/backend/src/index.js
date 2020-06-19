@@ -1,10 +1,24 @@
 const express = require('express');
+const cors = require('cors');
 const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
+
+app.use(cors())
 app.use(express.json());
 
-const projects = [];
+const projects = [
+  {
+    id: "59ab89ae-5702-4543-a9e7-1e159499c2f2",
+    title: "Front-end com ReactJS",
+    owner: "Alexandre Guimenti"
+  },
+  {
+    id: "271a4556-9a15-49c1-add8-e2082488d205",
+    title: "Mobile com React Native",
+    owner: "Alexandre Guimenti"
+  }
+];
 
 function logRequest(request, response, next) {
   const { method, url } = request
@@ -85,5 +99,5 @@ app.delete('/projects/:id', (request, response) => {
 })
 
 app.listen(3333, () => {
-  console.log('🚀 Back-end started!')
+  console.log('🚀 Back-end started at port 3333!')
 });
