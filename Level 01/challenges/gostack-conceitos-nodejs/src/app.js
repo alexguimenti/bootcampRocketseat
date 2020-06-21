@@ -8,7 +8,22 @@ app.use(express.json());
 app.use(cors());
 app.use(logRequest);
 
-const repositories = [];
+const repositories = [
+  // {
+  //   id: "7dbca838-b7e0-4fda-97ae-92e6606e9819",
+  //   title: 'Ecoleta',
+  //   url: 'https://github.com/alexguimenti/appEcoleta',
+  //   techs: 'Node, ReactJS, React Native',
+  //   likes: 7
+  // },
+  // {
+  //   id: "1ef64898-bc97-4ff3-a29c-f9428d09526b",
+  //   title: 'CS50 Harvard',
+  //   url: 'https://github.com/alexguimenti/CS50HarvardUniversity',
+  //   techs: 'C and Python',
+  //   likes: 3
+  // }
+];
 
 function logRequest(request, response, next) {
   const { method, url } = request;
