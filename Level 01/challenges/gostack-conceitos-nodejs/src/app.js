@@ -13,14 +13,14 @@ const repositories = [
   //   id: "7dbca838-b7e0-4fda-97ae-92e6606e9819",
   //   title: 'Ecoleta',
   //   url: 'https://github.com/alexguimenti/appEcoleta',
-  //   techs: 'Node, ReactJS, React Native',
+  //   techs: ['Node', 'ReactJS', 'React Native'],
   //   likes: 7
   // },
   // {
   //   id: "1ef64898-bc97-4ff3-a29c-f9428d09526b",
   //   title: 'CS50 Harvard',
   //   url: 'https://github.com/alexguimenti/CS50HarvardUniversity',
-  //   techs: 'C and Python',
+  //   techs: ['C', 'Python'],
   //   likes: 3
   // }
 ];
@@ -28,7 +28,7 @@ const repositories = [
 function logRequest(request, response, next) {
   const { method, url } = request;
   const logLabel = `🎯 [${method}] ${url}`
-  
+
   console.time(logLabel);
   next();
   console.timeEnd(logLabel);
