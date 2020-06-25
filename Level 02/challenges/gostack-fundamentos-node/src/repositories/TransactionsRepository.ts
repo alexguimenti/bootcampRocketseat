@@ -1,4 +1,3 @@
-import { uuid } from 'uuidv4';
 import Transaction from '../models/Transaction';
 
 interface Balance {
@@ -18,18 +17,18 @@ class TransactionsRepository {
 
   constructor() {
     this.transactions = [
-      {
-        id: uuid(),
-        title: 'Salário',
-        value: 4000,
-        type: 'income',
-      },
-      {
-        id: uuid(),
-        title: 'Pagamento da fatura',
-        value: 4000,
-        type: 'outcome',
-      },
+      // {
+      //   id: uuid(),
+      //   title: 'Salário',
+      //   value: 4000,
+      //   type: 'income',
+      // },
+      // {
+      //   id: uuid(),
+      //   title: 'Pagamento da fatura',
+      //   value: 4000,
+      //   type: 'outcome',
+      // },
     ];
   }
 
@@ -38,38 +37,59 @@ class TransactionsRepository {
   }
 
   public getBalance(): Balance {
-    const incomeTransactions = this.transactions.filter(
-      transaction => transaction.type === 'income',
-    );
+    let totalOutcome = 0;
+    let totalIncome = 0;
+    if (this.transactions.length > 0) {
+      const foundIncome = this.transactions.find(
+        transaction => transaction.type === 'income',
+      );
+      if (foundIncome) {
+        const incomeTransactions = this.transactions.filter(
+          transaction => transaction.type === 'income',
+        );
 
-    const incomeValues = incomeTransactions.map(
-      transaction => transaction.value,
-    );
+        const incomeValues = incomeTransactions.map(
+          transaction => transaction.value,
+        );
 
-    const totalIncome = incomeValues.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-    );
+        totalIncome = incomeValues.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+        );
+      }
 
-    const outcomeTransactions = this.transactions.filter(
-      transaction => transaction.type === 'outcome',
-    );
+      const foundOutcome = this.transactions.find(
+        transaction => transaction.type === 'outcome',
+      );
 
-    const outcomeValues = outcomeTransactions.map(
-      transaction => transaction.value,
-    );
+      if (foundOutcome) {
+        const outcomeTransactions = this.transactions.filter(
+          transaction => transaction.type === 'outcome',
+        );
 
-    const totalOutcome = outcomeValues.reduce(
-      (accumulator, currentValue) => accumulator + currentValue,
-    );
+        const outcomeValues = outcomeTransactions.map(
+          transaction => transaction.value,
+        );
 
-    const total = totalIncome - totalOutcome;
+        totalOutcome = outcomeValues.reduce(
+          (accumulator, currentValue) => accumulator + currentValue,
+        );
+      }
 
+      const total = totalIncome - totalOutcome;
+
+      const balance = {
+        income: totalIncome,
+        outcome: totalOutcome,
+        total,
+      };
+
+      return balance;
+    }
     const balance = {
-      income: totalIncome,
-      outcome: totalOutcome,
-      total,
+      income: 0,
+      outcome: 0,
+      total: 0,
     };
-
     return balance;
   }
 
