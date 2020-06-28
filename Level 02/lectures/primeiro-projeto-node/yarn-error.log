@@ -1,8 +1,8 @@
 Arguments: 
-  /usr/bin/node /mnt/c/Program Files (x86)/Yarn/bin/yarn.js add postgress
+  /usr/bin/node /mnt/c/Program Files (x86)/Yarn/bin/yarn.js add bcrypt.js
 
 PATH: 
-  /home/alexguimenti/.vscode-server/bin/cd9ea6488829f560dc949a8b2fb789f3cdc05f5d/bin:/home/alexguimenti/.zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files (x86)/Yarn/bin/:/mnt/c/Program Files/Java/jdk1.8.0_211/bin:/mnt/c/Android/Sdk/emulator:/mnt/c/Program Files/Java/jdk1.8.0_211/emulator:/mnt/c/Program Files/Java/jdk1.8.0_211/tools:/mnt/c/Program Files/Java/jdk1.8.0_211/tools/bin:/mnt/c/Program Files/Java/jdk1.8.0_211/platform-tools:/mnt/c/Users/alexg/AppData/Local/Programs/Python/Python37-32/Scripts/:/mnt/c/Users/alexg/AppData/Local/Programs/Python/Python37-32/:/mnt/c/Users/alexg/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/alexg/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files/heroku/bin:/mnt/c/MinGW/bin:/mnt/c/Users/alexg/AppData/Roaming/npm:/mnt/c/Users/alexg/AppData/Local/Yarn/bin:/mnt/c/Android/Sdk/platform-tools:/mnt/c/Android/Sdk/tools:/mnt/c/Android/Sdk/tools/bin:/mnt/c/Android/Sdk/platform-tools:/home/alexguimenti/Android/Sdk/emulator:/home/alexguimenti/Android/Sdk/tools:/home/alexguimenti/Android/Sdk/tools/bin:/home/alexguimenti/Android/Sdk/platform-tools:/home/alexguimenti/Android/Sdk/emulator:/home/alexguimenti/Android/Sdk/tools:/home/alexguimenti/Android/Sdk/tools/bin:/home/alexguimenti/Android/Sdk/platform-tools
+  /home/alexguimenti/.vscode-server/bin/cd9ea6488829f560dc949a8b2fb789f3cdc05f5d/bin:/home/alexguimenti/.zinit/polaris/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/mnt/c/Program Files (x86)/Common Files/Oracle/Java/javapath:/mnt/c/WINDOWS/system32:/mnt/c/WINDOWS:/mnt/c/WINDOWS/System32/Wbem:/mnt/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/mnt/c/WINDOWS/System32/OpenSSH/:/mnt/c/Program Files/Git/cmd:/mnt/c/TDM-GCC-64/bin:/mnt/c/Program Files/Microsoft SQL Server/130/Tools/Binn/:/mnt/c/Program Files/Microsoft SQL Server/Client SDK/ODBC/170/Tools/Binn/:/mnt/c/Program Files/dotnet/:/mnt/c/Program Files/Docker/Docker/resources/bin:/mnt/c/ProgramData/DockerDesktop/version-bin:/mnt/c/Program Files/nodejs/:/mnt/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/mnt/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/mnt/c/ProgramData/chocolatey/bin:/mnt/c/Program Files (x86)/Yarn/bin/:/mnt/c/Program Files/Java/jdk1.8.0_211/bin:/mnt/c/Android/Sdk/emulator:/mnt/c/Program Files/Java/jdk1.8.0_211/emulator:/mnt/c/Program Files/Java/jdk1.8.0_211/tools:/mnt/c/Program Files/Java/jdk1.8.0_211/tools/bin:/mnt/c/Program Files/Java/jdk1.8.0_211/platform-tools:/mnt/c/Users/alexg/AppData/Local/Programs/Python/Python37-32/Scripts/:/mnt/c/Users/alexg/AppData/Local/Programs/Python/Python37-32/:/mnt/c/Users/alexg/AppData/Local/Microsoft/WindowsApps:/mnt/c/Users/alexg/AppData/Local/Programs/Microsoft VS Code/bin:/mnt/c/Program Files/heroku/bin:/mnt/c/MinGW/bin:/mnt/c/Users/alexg/AppData/Roaming/npm:/mnt/c/Users/alexg/AppData/Local/Yarn/bin:/mnt/c/Android/Sdk/platform-tools:/mnt/c/Android/Sdk/emulator:/mnt/c/Android/Sdk/tools:/mnt/c/Android/Sdk/tools/bin:/mnt/c/Android/Sdk/platform-tools:/home/alexguimenti/Android/Sdk/emulator:/home/alexguimenti/Android/Sdk/tools:/home/alexguimenti/Android/Sdk/tools/bin:/home/alexguimenti/Android/Sdk/platform-tools:/home/alexguimenti/Android/Sdk/emulator:/home/alexguimenti/Android/Sdk/tools:/home/alexguimenti/Android/Sdk/tools/bin:/home/alexguimenti/Android/Sdk/platform-tools
 
 Yarn version: 
   1.22.4
@@ -14,7 +14,7 @@ Platform:
   linux x64
 
 Trace: 
-  Error: https://registry.yarnpkg.com/postgress: Not found
+  Error: https://registry.yarnpkg.com/bcrypt.js: Not found
       at Request.params.callback [as _callback] (/mnt/c/Program Files (x86)/Yarn/lib/cli.js:66096:18)
       at Request.self.callback (/mnt/c/Program Files (x86)/Yarn/lib/cli.js:140748:22)
       at Request.emit (events.js:315:20)
@@ -34,13 +34,15 @@ npm manifest:
     "license": "MIT",
     "scripts": {
       "build": "tsc",
-      "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts"
+      "dev:server": "ts-node-dev --inspect --transpileOnly --ignore-watch node_modules src/server.ts",
+      "typeorm": "ts-node-dev ./node_modules/typeorm/cli.js"
     },
     "dependencies": {
       "@types/express": "^4.17.6",
       "date-fns": "^2.14.0",
       "express": "^4.17.1",
       "pg": "^8.2.1",
+      "reflect-metadata": "^0.1.13",
       "typeorm": "^0.2.25",
       "uuidv4": "^6.1.0"
     },
