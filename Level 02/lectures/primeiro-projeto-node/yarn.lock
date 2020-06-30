@@ -832,6 +832,11 @@ expect-ct@^0.3.0:
   resolved "https://registry.yarnpkg.com/expect-ct/-/expect-ct-0.3.0.tgz#c41ceabe62f914a1df893e968e49c2a6beefb024"
   integrity sha512-7RWfSVDd3q6gkLCrItM0GiIB391WeD6lRldx9lFmIcq7nrYDtDj30S5mm4xHTOndQ99ZRqXGbh3WnxRLF2rMOg==
 
+express-async-errors@^3.1.1:
+  version "3.1.1"
+  resolved "https://registry.yarnpkg.com/express-async-errors/-/express-async-errors-3.1.1.tgz#6053236d61d21ddef4892d6bd1d736889fc9da41"
+  integrity sha512-h6aK1da4tpqWSbyCa3FxB/V6Ehd4EEB15zyQq9qe75OZBp0krinNKuH4rAY+S/U/2I36vdLAUFSjQJ+TFmODng==
+
 express@^4.17.1:
   version "4.17.1"
   resolved "https://registry.yarnpkg.com/express/-/express-4.17.1.tgz#4491fc38605cf51f8629d39c2b5d026f98a4c134"
