@@ -20,8 +20,12 @@ export default class CreateTransacions1593602506942
           },
           {
             name: 'value',
-            type: 'decimal',
-            precision: 2,
+            type: 'int',
+            isNullable: false,
+          },
+          {
+            name: 'type',
+            type: 'varchar',
             isNullable: false,
           },
           {
