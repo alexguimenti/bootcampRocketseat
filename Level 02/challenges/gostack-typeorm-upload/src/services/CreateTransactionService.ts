@@ -9,23 +9,17 @@ interface Request {
   title: string;
   value: number;
   type: 'income' | 'outcome';
-  category_id: string;
 }
 
 class CreateTransactionService {
-  public async execute({
-    title,
-    value,
-    type,
-    category_id,
-  }: Request): Promise<Transaction> {
+  public async execute({ title, value, type }: Request): Promise<Transaction> {
     const transactionsRepository = getCustomRepository(TransactionsRepository);
     const transaction = transactionsRepository.create({
       id: uuid(),
       title,
       value,
       type,
-      category_id,
+      category_id: uuid(),
     });
 
     await transactionsRepository.save(transaction);
