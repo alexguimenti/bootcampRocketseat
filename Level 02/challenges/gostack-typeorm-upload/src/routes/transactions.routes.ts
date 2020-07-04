@@ -1,31 +1,25 @@
 import { Router } from 'express';
 import { uuid } from 'uuidv4';
 
+import { getCustomRepository, getRepository } from 'typeorm';
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import CreateTransactionService from '../services/CreateTransactionService';
 // import DeleteTransactionService from '../services/DeleteTransactionService';
 // import ImportTransactionsService from '../services/ImportTransactionsService';
+import Category from '../models/Category';
+
+import CreateCategoryService from '../services/CreateCategoryService';
 
 const transactionsRouter = Router();
 
 // const transactions = [];
 
 transactionsRouter.get('/', async (request, response) => {
-  return response.json(transactions);
+  return response.json({ message: 'transactions' });
 });
 
 transactionsRouter.post('/', async (request, response) => {
-  const { title, value, type, category_id } = request.body;
-
-  // const transaction = {
-  //   id: uuid(),
-  //   title,
-  //   value,
-  //   type,
-  //   category_id,
-  // };
-
-  // transactions.push(transaction);
+  const { title, value, type, category } = request.body;
 
   const createTransaction = new CreateTransactionService();
 
@@ -33,7 +27,7 @@ transactionsRouter.post('/', async (request, response) => {
     title,
     value,
     type,
-    category_id,
+    category,
   });
 
   return response.json(transaction);
