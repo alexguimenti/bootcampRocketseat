@@ -7,6 +7,7 @@ import CreateTransactionService from '../services/CreateTransactionService';
 // import DeleteTransactionService from '../services/DeleteTransactionService';
 // import ImportTransactionsService from '../services/ImportTransactionsService';
 import Category from '../models/Category';
+import Transaction from '../models/Transaction';
 
 import CreateCategoryService from '../services/CreateCategoryService';
 
@@ -15,7 +16,10 @@ const transactionsRouter = Router();
 // const transactions = [];
 
 transactionsRouter.get('/', async (request, response) => {
-  return response.json({ message: 'transactions' });
+  const transactionRepository = getRepository(Transaction);
+  const transactions = await transactionRepository.find();
+
+  return response.json({ transactions });
 });
 
 transactionsRouter.post('/', async (request, response) => {
