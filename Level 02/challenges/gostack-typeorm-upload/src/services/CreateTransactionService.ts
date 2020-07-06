@@ -1,10 +1,11 @@
-// import AppError from '../errors/AppError';
 import { uuid } from 'uuidv4';
 import { getCustomRepository, getRepository } from 'typeorm';
+import AppError from '../errors/AppError';
+
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import CreateCategoryService from './CreateCategoryService';
-import Category from '../models/Category';
 
+import Category from '../models/Category';
 import Transaction from '../models/Transaction';
 
 interface Request {
@@ -21,10 +22,23 @@ class CreateTransactionService {
     type,
     category,
   }: Request): Promise<Transaction> {
+    const transactionsRepositories = getCustomRepository(
+      TransactionsRepository,
+    );
+
+    const balance = await transactionsRepositories.getBalance();
+
+    const available = balance.total;
+
+    if (type === 'outcome' && available < value) {
+      throw new AppError('Not enough balance');
+    }
+
     const categoriesRepository = getRepository(Category);
     const categories = await categoriesRepository.findOne({
       where: { title: category },
     });
+    console.log(categories);
 
     let addCategory = null;
     if (categories) {
@@ -34,7 +48,6 @@ class CreateTransactionService {
 
       addCategory = await createCategory.execute({ category });
     }
-
     const transactionsRepository = getCustomRepository(TransactionsRepository);
 
     const transaction = transactionsRepository.create({

@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, json } from 'express';
 import { uuid } from 'uuidv4';
 
 import { getCustomRepository, getRepository } from 'typeorm';
@@ -39,7 +39,10 @@ transactionsRouter.post('/', async (request, response) => {
 });
 
 transactionsRouter.delete('/:id', async (request, response) => {
-  // TODO
+  const { id } = request.params;
+  const transactionsRepository = getRepository(Transaction);
+  await transactionsRepository.delete({ id });
+  return response.status(204).json();
 });
 
 transactionsRouter.post('/import', async (request, response) => {
