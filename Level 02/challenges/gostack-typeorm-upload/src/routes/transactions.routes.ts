@@ -5,7 +5,7 @@ import { getCustomRepository, getRepository } from 'typeorm';
 import TransactionsRepository from '../repositories/TransactionsRepository';
 import CreateTransactionService from '../services/CreateTransactionService';
 import DeleteTransactionService from '../services/DeleteTransactionService';
-// import ImportTransactionsService from '../services/ImportTransactionsService';
+import ImportTransactionsService from '../services/ImportTransactionsService';
 import Category from '../models/Category';
 import Transaction from '../models/Transaction';
 
@@ -47,6 +47,11 @@ transactionsRouter.delete('/:id', async (request, response) => {
 
 transactionsRouter.post('/import', async (request, response) => {
   // TODO
+  const importTransactions = new ImportTransactionsService();
+
+  const transactions = await importTransactions.execute();
+
+  return response.json(transactions);
 });
 
 export default transactionsRouter;
