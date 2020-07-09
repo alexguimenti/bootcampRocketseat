@@ -1,15 +1,14 @@
 import csvParse from 'csv-parse';
 import fs from 'fs';
 import path from 'path';
-import { getRepository } from 'typeorm';
 import Transaction from '../models/Transaction';
-import CreateTransactionService from './DeleteTransactionService';
+import CreateTransactionService from './CreateTransactionService';
+import uploadConfig from '../config/uploadConfig';
 
 class ImportTransactionsService {
-  async execute(): Promise<Transaction[]> {
+  async execute(filename: string): Promise<Transaction[]> {
     // async execute(): Promise<void> {
     // TODO
-    const createTransaction = new CreateTransactionService();
     const csvFilePath = path.resolve(
       __dirname,
       '..',
@@ -27,7 +26,7 @@ class ImportTransactionsService {
 
     const parseCSV = readCSVStream.pipe(parseStream);
 
-    const lines = [];
+    const lines: Transaction[] = [];
 
     parseCSV.on('data', line => {
       const newTransaction = {
@@ -36,13 +35,12 @@ class ImportTransactionsService {
         value: line[2],
         category: line[3],
       };
-      lines.push(newTransaction);
+      console.log(newTransaction);
     });
     await new Promise(resolve => {
       parseCSV.on('end', resolve);
     });
 
-    console.log(lines);
     return lines;
   }
 }
