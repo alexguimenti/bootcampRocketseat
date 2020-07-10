@@ -1,5 +1,4 @@
-import { Router, json } from 'express';
-import { uuid } from 'uuidv4';
+import { Router } from 'express';
 import multer from 'multer';
 import { getCustomRepository, getRepository } from 'typeorm';
 import uploadConfig from '../config/uploadConfig';
@@ -8,10 +7,7 @@ import TransactionsRepository from '../repositories/TransactionsRepository';
 import CreateTransactionService from '../services/CreateTransactionService';
 import DeleteTransactionService from '../services/DeleteTransactionService';
 import ImportTransactionsService from '../services/ImportTransactionsService';
-import Category from '../models/Category';
 import Transaction from '../models/Transaction';
-
-import CreateCategoryService from '../services/CreateCategoryService';
 
 const transactionsRouter = Router();
 const upload = multer(uploadConfig);
@@ -53,11 +49,12 @@ transactionsRouter.post(
   upload.single('file'),
   async (request, response) => {
     // TODO
+    const { filename } = request.file;
     const importTransactions = new ImportTransactionsService();
 
-    const transactions = await importTransactions.execute();
+    const transactions = await importTransactions.execute(filename);
 
-    return response.json(transactions);
+    return response.status(200).json(transactions);
   },
 );
 
