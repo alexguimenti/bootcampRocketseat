@@ -52,7 +52,7 @@ transactionsRouter.post(
     const { filename } = request.file;
     const importTransactions = new ImportTransactionsService();
 
-    const transactions = await importTransactions.execute(filename);
+    const transactions = await importTransactions.execute({ filename });
 
     return response.status(200).json(transactions);
   },
