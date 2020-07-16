@@ -30,12 +30,17 @@ interface Balance {
 }
 
 const Dashboard: React.FC = () => {
-  // const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   // const [balance, setBalance] = useState<Balance>({} as Balance);
 
   useEffect(() => {
     async function loadTransactions(): Promise<void> {
-      // TODO
+      const response = await api.get('/transactions');
+
+      const currentTransactions = response.data.transactions;
+
+      setTransactions(currentTransactions);
+      console.log(currentTransactions);
     }
 
     loadTransactions();
@@ -81,7 +86,7 @@ const Dashboard: React.FC = () => {
             </thead>
 
             <tbody>
-              <tr>
+              {/* <tr>
                 <td className="title">Computer</td>
                 <td className="income">R$ 5.000,00</td>
                 <td>Sell</td>
@@ -92,7 +97,26 @@ const Dashboard: React.FC = () => {
                 <td className="outcome">- R$ 1.000,00</td>
                 <td>Hosting</td>
                 <td>19/04/2020</td>
-              </tr>
+              </tr> */}
+              {transactions.map(transaction => (
+                <tr key={transaction.id}>
+                  <td className="title">{transaction.title}</td>
+                  <td className={transaction.type}>
+                    {transaction.type === 'outcome' ? '- ' : ''}
+                    {formatValue(transaction.value)}
+                  </td>
+                  <td>{transaction.category.title}</td>
+                  <td>
+                    {`${transaction.created_at
+                      .toString()
+                      .substr(8, 2)}/${transaction.created_at
+                      .toString()
+                      .substr(5, 2)}/${transaction.created_at
+                      .toString()
+                      .substr(0, 4)}`}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         </TableContainer>
