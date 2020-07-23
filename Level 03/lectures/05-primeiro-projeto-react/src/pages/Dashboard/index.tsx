@@ -1,99 +1,117 @@
-import React, { useState, useEffect, FormEvent } from 'react';
-import { FiChevronRight } from 'react-icons/fi';
-import { Link } from 'react-router-dom';
+import React, { useState, useEffect } from 'react';
+
+import income from '../../assets/income.svg';
+import outcome from '../../assets/outcome.svg';
+import total from '../../assets/total.svg';
+
 import api from '../../services/api';
 
-import logoImg from '../../assets/logo.svg';
+import Header from '../../components/Header';
 
-import { Title, Form, Repositories, Error } from './styles';
+import formatValue from '../../utils/formatValue';
 
-interface Repository {
-  full_name: string;
-  description: string;
-  owner: {
-    login: string;
-    avatar_url: string;
-  };
+import { Container, CardContainer, Card, TableContainer } from './styles';
+
+interface Transaction {
+  id: string;
+  title: string;
+  value: number;
+  formattedValue: string;
+  formattedDate: string;
+  type: 'income' | 'outcome';
+  category: { title: string };
+  created_at: Date;
+}
+
+interface Balance {
+  income: string;
+  outcome: string;
+  total: string;
 }
 
 const Dashboard: React.FC = () => {
-  const [newRepo, setNewRepo] = useState('');
-  const [inputError, setInputError] = useState('');
-
-  const [repositories, setRepositories] = useState<Repository[]>(() => {
-    const storagedRepositories = localStorage.getItem(
-      '@GithubExplorer:repositories',
-    );
-    if (storagedRepositories) {
-      return JSON.parse(storagedRepositories);
-    }
-    return [];
-  });
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [balance, setBalance] = useState<Balance>({} as Balance);
 
   useEffect(() => {
-    localStorage.setItem(
-      '@GithubExplorer:repositories',
-      JSON.stringify(repositories),
-    );
-  }, [repositories]);
+    async function loadTransactions(): Promise<void> {
+      const response = await api.get('/transactions');
 
-  async function handleAddrepository(
-    event: FormEvent<HTMLFormElement>,
-  ): Promise<void> {
-    event.preventDefault();
+      const currentTransactions = response.data.transactions;
+      const currentBalance = response.data.balance;
 
-    if (!newRepo) {
-      setInputError('Digite o autor/nome do repositório');
-      return;
+      setTransactions(currentTransactions);
+      setBalance(currentBalance);
     }
 
-    try {
-      const response = await api.get<Repository>(`repos/${newRepo}`);
-
-      const repository = response.data;
-
-      setRepositories([...repositories, repository]);
-      setNewRepo('');
-      setInputError('');
-    } catch (err) {
-      setInputError('Erro na busca por esse repositório');
-    }
-  }
+    loadTransactions();
+  }, []);
 
   return (
     <>
-      <img src={logoImg} alt="Github Explorer" />
-      <Title>Explore repositórios no Github.</Title>
+      <Header />
+      <Container>
+        <CardContainer>
+          <Card>
+            <header>
+              <p>Entradas</p>
+              <img src={income} alt="Income" />
+            </header>
+            <h1 data-testid="balance-income">{formatValue(balance.income)}</h1>
+          </Card>
+          <Card>
+            <header>
+              <p>Saídas</p>
+              <img src={outcome} alt="Outcome" />
+            </header>
+            <h1 data-testid="balance-outcome">
+              {formatValue(balance.outcome)}
+            </h1>
+          </Card>
+          <Card total>
+            <header>
+              <p>Total</p>
+              <img src={total} alt="Total" />
+            </header>
+            <h1 data-testid="balance-total">{formatValue(balance.total)}</h1>
+          </Card>
+        </CardContainer>
 
-      <Form hasError={!!inputError} onSubmit={handleAddrepository}>
-        <input
-          value={newRepo}
-          onChange={e => setNewRepo(e.target.value)}
-          placeholder="Digite o nome do repositório"
-        />
-        <button type="submit">Pesquisar</button>
-      </Form>
+        <TableContainer>
+          <table>
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Preço</th>
+                <th>Categoria</th>
+                <th>Data</th>
+              </tr>
+            </thead>
 
-      {inputError && <Error>{inputError}</Error>}
-
-      <Repositories>
-        {repositories.map(repository => (
-          <Link
-            key={repository.full_name}
-            to={`/repositories/${repository.full_name}`}
-          >
-            <img
-              src={repository.owner.avatar_url}
-              alt={repository.owner.login}
-            />
-            <div>
-              <strong>{repository.full_name}</strong>
-              <p>{repository.description}</p>
-            </div>
-            <FiChevronRight size={20} />
-          </Link>
-        ))}
-      </Repositories>
+            <tbody>
+              {transactions.map(transaction => (
+                <tr key={transaction.id}>
+                  <td className="title">{transaction.title}</td>
+                  <td className={transaction.type}>
+                    {transaction.type === 'outcome' ? '- ' : ''}
+                    {formatValue(transaction.value)}
+                  </td>
+                  <td>{transaction.category.title}</td>
+                  <td>
+                    {`${transaction.created_at
+                      .toString()
+                      .substr(8, 2)}/${transaction.created_at
+                      .toString()
+                      .substr(5, 2)}/${transaction.created_at
+                      .toString()
+                      .substr(0, 4)}`}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </TableContainer>
+      </Container>
     </>
   );
 };
