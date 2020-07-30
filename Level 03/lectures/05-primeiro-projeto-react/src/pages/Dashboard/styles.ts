@@ -1,95 +1,117 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
+import { shade } from 'polished';
 
-interface CardProps {
-  total?: boolean;
+interface FormProps {
+  hasError: boolean;
 }
-
-export const Container = styled.div`
-  width: 100%;
-  max-width: 1120px;
-  margin: 0 auto;
-  padding: 40px 20px;
-`;
 
 export const Title = styled.h1`
   font-size: 48px;
   color: #3a3a3a;
+  max-width: 450px;
+  line-height: 56px;
+
+  margin-top: 80px;
 `;
 
-export const CardContainer = styled.section`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 32px;
-  margin-top: -150px;
+export const Form = styled.form<FormProps>`
+  margin-top: 40px;
+  max-width: 700px;
+
+  display: flex;
+
+  input {
+    flex: 1;
+    height: 70px;
+    padding: 0 24px;
+    border: 0;
+    border-radius: 5px 0 0 5px;
+    color: #3a3a3a;
+    border: 2px solid #fff;
+    border-right: 0;
+
+    ${props =>
+      props.hasError &&
+      css`
+        border-color: #c53030;
+      `}
+
+    &::placeholder {
+      color: #a8a8b3;
+    }
+  }
+
+  button {
+    width: 210px;
+    height: 70px;
+    background: #04d361;
+    border-radius: 0px 5px 5px 0px;
+    border: 0;
+    color: #fff;
+    font-weight: bold;
+    transition: background-color 0.2s;
+
+    &:hover {
+      background: ${shade(0.2, '#04d361')};
+    }
+  }
 `;
 
-export const Card = styled.div`
-  background: ${({ total }: CardProps): string => (total ? '#FF872C' : '#fff')};
-  padding: 22px 32px;
-  border-radius: 5px;
-  color: ${({ total }: CardProps): string => (total ? '#fff' : '#363F5F')};
+export const Error = styled.span`
+  display: block;
+  color: #c53030;
+  margin-top: 8px;
+`;
 
-  header {
+export const Repositories = styled.div`
+  margin-top: 80px;
+  max-width: 700px;
+
+  a {
+    background: #fff;
+    border-radius: 5px;
+    width: 100%;
+    padding: 24px;
+    display: block;
+    text-decoration: none;
+    transition: transform 0.2s;
+
+    & + a {
+      margin-top: 10px;
+    }
+
     display: flex;
     align-items: center;
-    justify-content: space-between;
+
+    &:hover {
+      transform: translateX(10px);
+    }
+  }
+
+  img {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    margin-right: 24px;
+  }
+
+  div {
+    margin-left: 0 16px;
+    flex: 1;
+    strong {
+      font-size: 20px;
+      color: #3d3d4d;
+    }
 
     p {
-      font-size: 16px;
-    }
-  }
-
-  h1 {
-    margin-top: 14px;
-    font-size: 36px;
-    font-weight: normal;
-    line-height: 54px;
-  }
-`;
-
-export const TableContainer = styled.section`
-  margin-top: 64px;
-
-  table {
-    width: 100%;
-    border-spacing: 0 8px;
-
-    th {
-      color: #969cb3;
-      font-weight: normal;
-      padding: 20px 32px;
-      text-align: left;
-      font-size: 16px;
-      line-height: 24px;
+      font-size: 18px;
+      color: #a8a8b3;
+      margin-top: 4px;
     }
 
-    td {
-      padding: 20px 32px;
-      border: 0;
-      background: #fff;
-      font-size: 16px;
-      font-weight: normal;
-      color: #969cb3;
-
-      &.title {
-        color: #363f5f;
-      }
-
-      &.income {
-        color: #12a454;
-      }
-
-      &.outcome {
-        color: #e83f5b;
-      }
-    }
-
-    td:first-child {
-      border-radius: 8px 0 0 8px;
-    }
-
-    td:last-child {
-      border-radius: 0 8px 8px 0;
+    svg {
+      margin-left: auto;
+      color: #cbcbd6;
     }
   }
 `;

@@ -1,8 +1,7 @@
 {
   "env": {
     "browser": true,
-    "es6": true,
-    "jest": true
+    "es6": true
   },
   "extends": [
     "plugin:react/recommended",
@@ -23,20 +22,33 @@
     "ecmaVersion": 2018,
     "sourceType": "module"
   },
-  "plugins": ["react", "react-hooks", "@typescript-eslint", "prettier"],
+  "plugins": [
+    "react",
+    "react-hooks",
+    "@typescript-eslint",
+    "prettier"
+  ],
   "rules": {
-    "react/jsx-props-no-spreading": "off",
-    "prettier/prettier": "error",
     "react-hooks/rules-of-hooks": "error",
-    "react-hooks/exhaustive-deps": "warn",
-    "react/jsx-filename-extension": [1, { "extensions": [".tsx"] }],
-    "import/prefer-default-export": "off",
+    "prettier/prettier": "error",
+    "react/jsx-one-expression-per-line": "off",
     "@typescript-eslint/explicit-function-return-type": [
       "error",
       {
         "allowExpressions": true
       }
     ],
+    "camelcase": "off",
+    "react-hooks/exhaustive-deps": "warn",
+    "react/jsx-filename-extension": [
+      1,
+      {
+        "extensions": [
+          ".tsx"
+        ]
+      }
+    ],
+    "import/prefer-default-export": "off",
     "import/extensions": [
       "error",
       "ignorePackages",
